@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comprobantes",
+  "info": {
+    "singularName": "comprobante",
+    "pluralName": "comprobantes",
+    "displayName": "Comprobante",
+    "description": "Comprobante de ingreso que suma productos al stock"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "numero": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "fecha": {
+      "type": "datetime",
+      "required": true
+    },
+    "tipo": {
+      "type": "enumeration",
+      "enum": ["ingreso"],
+      "required": true,
+      "default": "ingreso"
+    },
+    "estado": {
+      "type": "enumeration",
+      "enum": ["borrador", "confirmado"],
+      "required": true,
+      "default": "borrador"
+    },
+    "observaciones": {
+      "type": "text"
+    },
+    "usuario": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "comprobante.items-comprobante",
+      "required": true,
+      "min": 1
+    }
+  }
+}

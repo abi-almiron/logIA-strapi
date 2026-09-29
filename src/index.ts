@@ -1,20 +1,52 @@
-// import type { Core } from '@strapi/strapi';
+import type { Core } from '@strapi/strapi';
+
+const CONTENT_TYPES = [
+  'api::producto.producto',
+  'api::comprobante.comprobante',
+  'api::menu.menu',
+  'api::grupo.grupo',
+];
+
+const ACCIONES = ['find', 'findOne', 'create', 'update', 'delete'];
+
+async function habilitarPermisosAutenticados(strapi: Core.Strapi) {
+  const role = await strapi.db.query('plugin::users-permissions.role').findOne({
+    where: { type: 'authenticated' },
+  });
+
+  if (!role) {
+    return;
+  }
+
+  for (const uid of CONTENT_TYPES) {
+    for (const accion of ACCIONES) {
+      const action = `${uid}.${accion}`;
+
+      const existente = await strapi.db.query('plugin::users-permissions.permission').findOne({
+        where: {
+          action,
+          role: { id: role.id },
+        },
+      });
+
+      if (existente) {
+        continue;
+      }
+
+      await strapi.db.query('plugin::users-permissions.permission').create({
+        data: {
+          action,
+          role: role.id,
+        },
+      });
+    }
+  }
+}
 
 export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register() {},
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+  async bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    await habilitarPermisosAutenticados(strapi);
+  },
 };

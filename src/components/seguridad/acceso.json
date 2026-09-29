@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_seguridad_accesos",
+  "info": {
+    "displayName": "Acceso",
+    "icon": "lock",
+    "description": "Permiso de un grupo sobre un menú"
+  },
+  "options": {},
+  "attributes": {
+    "menu": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::menu.menu",
+      "required": true
+    },
+    "consulta": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "alta": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "baja": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "modificacion": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  },
+  "config": {}
+}

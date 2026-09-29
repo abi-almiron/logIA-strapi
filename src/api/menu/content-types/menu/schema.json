@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "menus",
+  "info": {
+    "singularName": "menu",
+    "pluralName": "menus",
+    "displayName": "Menú",
+    "description": "Pantalla del sistema a la que un grupo puede tener acceso"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "codigo": {
+      "type": "enumeration",
+      "enum": ["productos", "comprobantes", "usuarios"],
+      "required": true,
+      "unique": true
+    },
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "ruta": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_comprobante_items_comprobantes",
+  "info": {
+    "displayName": "Item de comprobante",
+    "icon": "file",
+    "description": "Linea de un comprobante de ingreso"
+  },
+  "options": {},
+  "attributes": {
+    "cantidad": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    },
+    "precioUnitario": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    },
+    "producto": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::producto.producto"
+    }
+  },
+  "config": {}
+}

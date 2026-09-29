@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "grupos",
+  "info": {
+    "singularName": "grupo",
+    "pluralName": "grupos",
+    "displayName": "Grupo",
+    "description": "Grupo de usuarios con accesos a los menús del sistema"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "accesos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "seguridad.acceso"
+    }
+  }
+}
