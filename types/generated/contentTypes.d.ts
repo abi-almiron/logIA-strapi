@@ -579,7 +579,6 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
 export interface ApiComprobanteComprobante extends Struct.CollectionTypeSchema {
   collectionName: 'comprobantes';
   info: {
-    description: 'Comprobante de ingreso que suma productos al stock';
     displayName: 'Comprobante';
     pluralName: 'comprobantes';
     singularName: 'comprobante';
@@ -588,42 +587,24 @@ export interface ApiComprobanteComprobante extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    cliente: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    estado: Schema.Attribute.Enumeration<['borrador', 'confirmado']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'borrador'>;
-    fecha: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    items: Schema.Attribute.Component<'comprobante.items-comprobante', true> &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      >;
+    fecha: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::comprobante.comprobante'
     > &
       Schema.Attribute.Private;
-    numero: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    observaciones: Schema.Attribute.Text;
+    monto: Schema.Attribute.Decimal;
+    numero: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    tipo: Schema.Attribute.Enumeration<['ingreso']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'ingreso'>;
+    tipo: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    usuario: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
   };
 }
 
