@@ -3,5 +3,16 @@
  */
 
 import { factories } from '@strapi/strapi';
+import { configAcceso } from '../../../policies/acceso-menu';
 
-export default factories.createCoreRouter('api::comprobante.comprobante');
+const acceso = configAcceso('comprobantes');
+
+export default factories.createCoreRouter('api::comprobante.comprobante', {
+  config: {
+    find: acceso,
+    findOne: acceso,
+    create: acceso,
+    update: acceso,
+    delete: acceso,
+  },
+});
